@@ -1,7 +1,14 @@
 package io.github.tierneyjohn.eshow.controller;
 
+import com.alibaba.fastjson.JSON;
+import io.github.tierneyjohn.eshow.common.exception.ValidatedException;
 import io.github.tierneyjohn.eshow.dto.LoginDTO;
 import io.github.tierneyjohn.eshow.entity.User;
+import io.github.tierneyjohn.eshow.service.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author TierneyJohn
  */
+@Slf4j
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
+
+    private final UserService userService;
 
     /**
      * 用户登录方法
@@ -26,7 +37,15 @@ public class UserController {
      * @return 登录结果
      */
     @PostMapping("/login")
-    public User login(@RequestBody @Validated LoginDTO validator) {
-        return null;
+    public User login(@RequestBody @Validated LoginDTO validator, @NotNull BindingResult errors) {
+        log.info("用户登录请求: <== 请求信息: {}", JSON.toJSONString(validator));
+        if (errors.getErrorCount() != 0) {
+            log.warn("用户登录请求: ==> 登录失败,字段校验失败");
+            throw new ValidatedException(errors.getAllErrors());
+        }
+        log.info("用户登录请求: <== 请求信息校验成功");
+        User user = userService.login(validator);
+        log.info("用户登录请求: ==> 登录成功,用户 id 为: {}", user.getId());
+        return user;
     }
 }
