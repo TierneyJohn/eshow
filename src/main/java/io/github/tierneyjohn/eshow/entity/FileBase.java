@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 
+import java.util.List;
+
 /**
  * <p>
  * 文件信息公共父类
@@ -58,4 +60,9 @@ public abstract class FileBase {
      * 文件描述
      */
     private String describe;
+
+    /**
+     * 作者列表
+     */
+    private List<Author> authors;
 }

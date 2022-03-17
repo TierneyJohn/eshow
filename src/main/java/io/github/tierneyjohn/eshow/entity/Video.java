@@ -3,8 +3,6 @@ package io.github.tierneyjohn.eshow.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 /**
  * <p>
  * 视频信息实体类
@@ -23,12 +21,12 @@ public class Video extends FileBase {
     private Integer length;
 
     /**
-     * 视频封面路径
+     * 视频封面
      */
-    private String coverPath;
+    private Picture cover;
 
     /**
-     * 视频详情图片路径
+     * 视频详情图片
      */
-    private List<String> imgPaths;
+    private PicturePackage picturePackage;
 }
