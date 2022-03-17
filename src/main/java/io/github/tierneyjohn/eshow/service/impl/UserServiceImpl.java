@@ -1,6 +1,6 @@
 package io.github.tierneyjohn.eshow.service.impl;
 
-import io.github.tierneyjohn.eshow.common.LoginType;
+import io.github.tierneyjohn.eshow.common.enums.LoginType;
 import io.github.tierneyjohn.eshow.common.exception.UserException;
 import io.github.tierneyjohn.eshow.dto.LoginDTO;
 import io.github.tierneyjohn.eshow.dto.RegisterDTO;

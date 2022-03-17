@@ -1,4 +1,4 @@
-package io.github.tierneyjohn.eshow.common;
+package io.github.tierneyjohn.eshow.common.enums;
 
 /**
  * <p>

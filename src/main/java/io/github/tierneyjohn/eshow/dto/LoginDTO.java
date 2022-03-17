@@ -1,6 +1,6 @@
 package io.github.tierneyjohn.eshow.dto;
 
-import io.github.tierneyjohn.eshow.common.LoginType;
+import io.github.tierneyjohn.eshow.common.enums.LoginType;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 

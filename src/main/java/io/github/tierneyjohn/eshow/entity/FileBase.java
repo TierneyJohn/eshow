@@ -1,6 +1,6 @@
 package io.github.tierneyjohn.eshow.entity;
 
-import io.github.tierneyjohn.eshow.common.FileType;
+import io.github.tierneyjohn.eshow.common.enums.FileType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
