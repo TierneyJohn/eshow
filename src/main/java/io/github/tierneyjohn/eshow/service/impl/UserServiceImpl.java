@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -32,15 +33,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(@NotNull LoginDTO validator) {
+        // validator 数据处理
+        validator.setUsername(validator.getUsername().toLowerCase(Locale.ROOT));
+        validator.setEmail(validator.getEmail().toLowerCase(Locale.ROOT));
+
         // 添加登录类型校验
         if (Objects.isNull(validator.getLoginType())) {
             validator.setLoginType(LoginType.USERNAME);
         }
         // 根据登录类型执行查询方法
         User user = switch (validator.getLoginType()) {
-            case USERNAME -> userRepository.findOneByUsername(validator.getUsername());
-            case PHONE -> userRepository.findOneByPhone(validator.getPhone());
-            case EMAIL -> userRepository.findOneByEmail(validator.getEmail());
+            case USERNAME -> Objects.nonNull(validator.getUsername()) ? userRepository.findOneByUsername(validator.getUsername()) : null;
+            case PHONE -> Objects.nonNull(validator.getPhone()) ? userRepository.findOneByPhone(validator.getPhone()) : null;
+            case EMAIL -> Objects.nonNull(validator.getEmail()) ? userRepository.findOneByEmail(validator.getEmail()) : null;
         };
         // 用户信息验证
         if (Objects.isNull(user)) {
@@ -57,10 +62,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(RegisterDTO validator) {
+    public User register(@NotNull RegisterDTO validator) {
+        // validator 数据处理
+        validator.setUsername(validator.getUsername().toLowerCase(Locale.ROOT));
+        validator.setEmail(validator.getEmail().toLowerCase(Locale.ROOT));
+        // 获取相应用户信息
+        User user = userRepository.findOneByUsername(validator.getUsername());
+        // 验证是否存在该用户名
+        if (Objects.nonNull(user)) {
+            log.warn("用户注册请求: ==> 注册失败,用户名已存在");
+            throw new UserException("用户名已存在");
+        }
+
+        user = userRepository.findOneByPhone(validator.getPhone());
+        // 验证是否存在该手机号
+        if (Objects.nonNull(user)) {
+            log.warn("用户注册请求: ==> 注册失败,手机号已被注册");
+            throw new UserException("手机号已被注册");
+        }
+
+        user = userRepository.findOneByEmail(validator.getEmail());
+        // 验证是否存在该邮箱地址
+        if (Objects.nonNull(user)) {
+            log.warn("用户注册请求: ==> 注册失败,该邮箱已被注册");
+            throw new UserException("该邮箱已被注册");
+        }
+
         // 创建用户信息实体类
-        User registerInfo = new User();
-        BeanUtils.copyProperties(validator, registerInfo);
-        return userRepository.save(registerInfo);
+        user = new User();
+        BeanUtils.copyProperties(validator, user);
+        return userRepository.save(user);
     }
 }

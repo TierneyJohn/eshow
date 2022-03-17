@@ -27,12 +27,14 @@ public class RegisterDTO {
     /**
      * 登录手机号
      */
+    @NotBlank(message = "手机号布恩那个为空")
     @Length(min = 11, max = 11, message = "手机号位数不正确")
     private String phone;
 
     /**
      * 登录邮箱号
      */
+    @NotBlank(message = "邮箱不能为空")
     @Email(message = "邮箱格式不正确")
     private String email;
 

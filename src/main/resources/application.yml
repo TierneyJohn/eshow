@@ -8,8 +8,8 @@ spring:
   data:
     mongodb:
       database: eshow
-      username: root
-      password: root
+      username: admin
+      password: admin
 
 # 项目端口
 server:
