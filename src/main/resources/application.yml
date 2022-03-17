@@ -1,0 +1,16 @@
+# 项目相关配置
+spring:
+  # 应用信息配置
+  application:
+    name: eshow
+
+  # 数据源配置
+  data:
+    mongodb:
+      database: eshow
+      username: root
+      password: root
+
+# 项目端口
+server:
+  port: 5000
