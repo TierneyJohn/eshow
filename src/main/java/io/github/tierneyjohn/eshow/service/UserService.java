@@ -1,6 +1,7 @@
 package io.github.tierneyjohn.eshow.service;
 
 import io.github.tierneyjohn.eshow.dto.LoginDTO;
+import io.github.tierneyjohn.eshow.dto.RegisterDTO;
 import io.github.tierneyjohn.eshow.entity.User;
 
 /**
@@ -19,4 +20,11 @@ public interface UserService {
      * @return 登录结果
      */
     User login(LoginDTO validator);
+
+    /**
+     * 用户注册方法
+     * @param validator 注册信息校验器
+     * @return 注册结果
+     */
+    User register(RegisterDTO validator);
 }

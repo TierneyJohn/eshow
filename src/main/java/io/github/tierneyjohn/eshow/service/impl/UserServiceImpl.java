@@ -3,12 +3,14 @@ package io.github.tierneyjohn.eshow.service.impl;
 import io.github.tierneyjohn.eshow.common.LoginType;
 import io.github.tierneyjohn.eshow.common.exception.UserException;
 import io.github.tierneyjohn.eshow.dto.LoginDTO;
+import io.github.tierneyjohn.eshow.dto.RegisterDTO;
 import io.github.tierneyjohn.eshow.entity.User;
 import io.github.tierneyjohn.eshow.repository.UserRepository;
 import io.github.tierneyjohn.eshow.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -52,5 +54,13 @@ public class UserServiceImpl implements UserService {
         }
 
         return user;
+    }
+
+    @Override
+    public User register(RegisterDTO validator) {
+        // 创建用户信息实体类
+        User registerInfo = new User();
+        BeanUtils.copyProperties(validator, registerInfo);
+        return userRepository.save(registerInfo);
     }
 }
