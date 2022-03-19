@@ -34,13 +34,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(@NotNull LoginDTO validator) {
         // validator 数据处理
-        validator.setUsername(validator.getUsername().toLowerCase(Locale.ROOT));
-        validator.setEmail(validator.getEmail().toLowerCase(Locale.ROOT));
+        if (Objects.nonNull(validator.getUsername())) {
+            validator.setUsername(validator.getUsername().toLowerCase(Locale.ROOT));
+        }
+        if (Objects.nonNull(validator.getEmail())) {
+            validator.setEmail(validator.getEmail().toLowerCase(Locale.ROOT));
+        }
 
         // 添加登录类型校验
         if (Objects.isNull(validator.getLoginType())) {
             validator.setLoginType(LoginType.USERNAME);
         }
+
         // 根据登录类型执行查询方法
         User user = switch (validator.getLoginType()) {
             case USERNAME -> Objects.nonNull(validator.getUsername()) ? userRepository.findOneByUsername(validator.getUsername()) : null;
