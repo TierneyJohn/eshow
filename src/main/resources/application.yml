@@ -14,3 +14,15 @@ spring:
 # 项目端口
 server:
   port: 5000
+
+# CORS 配置
+cors:
+  access-control-allow-origins:
+    - http://127.0.0.1:3000
+    - http://localhost:3000
+  access-control-allow-headers:
+    - Content-Type
+  access-control-allow-methods:
+    - GET
+    - POST
+    - PUT
