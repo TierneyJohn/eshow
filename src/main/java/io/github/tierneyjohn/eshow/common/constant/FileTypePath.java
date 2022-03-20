@@ -18,4 +18,6 @@ public class FileTypePath {
 
     public static final String VIDEO_PATH = "video";
 
+    public static final String TEMP_PATH = "temp";
+
 }

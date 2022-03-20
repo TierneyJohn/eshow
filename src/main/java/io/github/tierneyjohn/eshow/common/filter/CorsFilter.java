@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * <p>
@@ -38,16 +36,10 @@ public class CorsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NotNull HttpServletRequest request,
                                     @NotNull HttpServletResponse response,
                                     @NotNull FilterChain filterChain) throws ServletException, IOException {
-        String originHeader = request.getHeader(HttpHeaders.ORIGIN);
+//        String originHeader = request.getHeader(HttpHeaders.ORIGIN);
 
-        if (Objects.nonNull(originHeader)) {
-            if (Arrays.asList(accessControlAllowOrigins).contains(originHeader)) {
-                response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, originHeader);
-            } else {
-                for (String accessControlAllowOrigin : accessControlAllowOrigins) {
-                    response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, accessControlAllowOrigin);
-                }
-            }
+        for (String accessControlAllowOrigin : accessControlAllowOrigins) {
+            response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, accessControlAllowOrigin);
         }
 
         for (String accessControlAllowHeader : accessControlAllowHeaders) {

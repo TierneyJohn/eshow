@@ -29,4 +29,34 @@ public interface FileService {
      */
     File getFile(String path);
 
+    /**
+     * 获取音频文件路径地址
+     * @return 音频文件路径
+     */
+    String getAudioFilePath();
+
+    /**
+     * 获取图片文件路径地址
+     * @return 图片文件路径
+     */
+    String getPictureFilePath();
+
+    /**
+     * 获取文本文件路径地址
+     * @return 文本文件路径
+     */
+    String getTextFilePath();
+
+    /**
+     * 获取视频文件路径地址
+     * @return 视频文件路径
+     */
+    String getVideoFilePath();
+
+    /**
+     * 获取临时文件路径地址
+     * @return 临时文件路径
+     */
+    String getTempFilePath();
+
 }

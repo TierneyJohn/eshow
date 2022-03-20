@@ -89,31 +89,51 @@ public class FileServiceImpl implements FileService {
         return null;
     }
 
+    @Override
+    public String getAudioFilePath() {
+        return property.getResourcePath() + File.separator + FileTypePath.AUDIO_PATH + File.separator;
+    }
+
+    @Override
+    public String getPictureFilePath() {
+        return property.getResourcePath() + File.separator + FileTypePath.PICTURE_PATH + File.separator;
+    }
+
+    @Override
+    public String getTextFilePath() {
+        return property.getResourcePath() + File.separator + FileTypePath.TEXT_PATH + File.separator;
+    }
+
+    @Override
+    public String getVideoFilePath() {
+        return property.getResourcePath() + File.separator + FileTypePath.VIDEO_PATH + File.separator;
+    }
+
+    @Override
+    public String getTempFilePath() {
+        return property.getResourcePath() + File.separator + FileTypePath.TEMP_PATH + File.separator;
+    }
+
     /**
      * 初始化项目资源路径
      */
     private void initFilePath() {
         log.info("初始化项目资源路径 ===>>>>>>>>>>");
-        File file = new File(property.getResourcePath());
-        if (!file.exists()) {
+
+        if (!new File(property.getResourcePath()).exists()) {
             log.info("项目资源路径不存在,初始化项目路径 >>>>>>>>>>");
             try {
-                file.createNewFile();
+                new File(property.getResourcePath()).createNewFile();
             } catch (IOException e) {
                 log.error("<<<<<<<<<<=== 初始化项目资源路径失败");
                 throw new FileException("初始化项目资源路径失败");
             }
         }
 
-        String audioPath = property.getResourcePath() + File.separator + FileTypePath.AUDIO_PATH;
-        String picturePath = property.getResourcePath() + File.separator + FileTypePath.PICTURE_PATH;
-        String textPath = property.getResourcePath() + File.separator + FileTypePath.TEXT_PATH;
-        String videoPath = property.getResourcePath() + File.separator + FileTypePath.VIDEO_PATH;
-
-        if (!new File(audioPath).exists()) {
+        if (!new File(getAudioFilePath()).exists()) {
             log.info("初始化音频路径 >>>>>>>>>>");
             try {
-                new File(audioPath).mkdir();
+                new File(getAudioFilePath()).mkdir();
             } catch (SecurityException e) {
                 log.error("<<<<<<<<<< 音频路径初始化失败");
                 throw new FileException("音频路径初始化失败");
@@ -121,10 +141,10 @@ public class FileServiceImpl implements FileService {
             log.info("<<<<<<<<<< 音频路径初始化成功");
         }
 
-        if (!new File(picturePath).exists()) {
+        if (!new File(getPictureFilePath()).exists()) {
             log.info("初始化图片路径 >>>>>>>>>>");
             try {
-                new File(picturePath).mkdir();
+                new File(getPictureFilePath()).mkdir();
             } catch (SecurityException e) {
                 log.error("<<<<<<<<<< 图片路径初始化失败");
                 throw new FileException("图片路径初始化失败");
@@ -132,10 +152,10 @@ public class FileServiceImpl implements FileService {
             log.info("<<<<<<<<<< 图片路径初始化成功");
         }
 
-        if (!new File(textPath).exists()) {
+        if (!new File(getTextFilePath()).exists()) {
             log.info("初始化文本路径 >>>>>>>>>>");
             try {
-                new File(textPath).mkdir();
+                new File(getTextFilePath()).mkdir();
             } catch (SecurityException e) {
                 log.error("<<<<<<<<<< 文本路径初始化失败");
                 throw new FileException("文本路径初始化失败");
@@ -143,15 +163,26 @@ public class FileServiceImpl implements FileService {
             log.info("<<<<<<<<<< 文本路径初始化成功");
         }
 
-        if (!new File(videoPath).exists()) {
+        if (!new File(getVideoFilePath()).exists()) {
             log.info("初始化视频路径 >>>>>>>>>>");
             try {
-                new File(videoPath).mkdir();
+                new File(getVideoFilePath()).mkdir();
             } catch (SecurityException e) {
                 log.error("<<<<<<<<<< 视频路径初始化失败");
                 throw new FileException("视频路径初始化失败");
             }
             log.info("<<<<<<<<<< 视频路径初始化成功");
+        }
+
+        if (!new File(getTempFilePath()).exists()) {
+            log.info("初始化临时资源路径 >>>>>>>>>>");
+            try {
+                new File(getTempFilePath()).mkdir();
+            } catch (SecurityException e) {
+                log.error("<<<<<<<<<< 临时资源路径初始化失败");
+                throw new FileException("临时资源路径初始化失败");
+            }
+            log.info("<<<<<<<<<< 临时资源路径初始化成功");
         }
 
         log.info("<<<<<<<<<<=== 项目资源路径初始化成功");

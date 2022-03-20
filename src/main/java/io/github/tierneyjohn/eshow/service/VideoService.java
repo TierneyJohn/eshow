@@ -1,5 +1,6 @@
 package io.github.tierneyjohn.eshow.service;
 
+import io.github.tierneyjohn.eshow.dto.VideoDTO;
 import io.github.tierneyjohn.eshow.entity.Video;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,4 +29,10 @@ public interface VideoService {
      */
     void findVideoIO(String code, HttpServletResponse response);
 
+    /**
+     * 视频上传方法
+     * @param validator 待上传文件信息
+     * @return 视频 code
+     */
+    String upload(VideoDTO validator);
 }

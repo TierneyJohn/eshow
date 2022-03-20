@@ -2,6 +2,7 @@ package io.github.tierneyjohn.eshow.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * <p>
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
  * @author TierneyJohn
  */
 @Data
+@ToString
 @EqualsAndHashCode(callSuper = true)
 public class Video extends FileBase {
 

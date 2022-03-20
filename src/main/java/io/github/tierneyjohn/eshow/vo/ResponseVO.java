@@ -2,6 +2,8 @@ package io.github.tierneyjohn.eshow.vo;
 
 import lombok.Builder;
 import lombok.Data;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,4 +44,9 @@ public class ResponseVO {
      * 响应时间
      */
     private LocalDateTime timestamp;
+
+    @Contract("_ -> new")
+    public static @NotNull ResponseVO buildStringResult(String result) {
+        return new ResponseVO("SUCCESS", true, result, null, LocalDateTime.now());
+    }
 }

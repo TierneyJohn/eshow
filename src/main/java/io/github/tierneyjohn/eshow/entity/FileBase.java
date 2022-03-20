@@ -4,6 +4,7 @@ import io.github.tierneyjohn.eshow.common.enums.FileType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.bson.types.ObjectId;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@ToString
 @RequiredArgsConstructor
 public abstract class FileBase {
 
@@ -54,7 +56,7 @@ public abstract class FileBase {
     /**
      * 文件大小
      */
-    private Double size;
+    private Long size;
 
     /**
      * 文件描述
