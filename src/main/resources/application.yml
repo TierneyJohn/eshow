@@ -26,3 +26,7 @@ cors:
     - GET
     - POST
     - PUT
+
+# 项目配置
+eshow:
+  resource-path: F:/eshow-work

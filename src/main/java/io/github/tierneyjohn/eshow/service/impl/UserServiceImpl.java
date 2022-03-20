@@ -9,6 +9,7 @@ import io.github.tierneyjohn.eshow.repository.UserRepository;
 import io.github.tierneyjohn.eshow.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User login(@NotNull LoginDTO validator) {
+    public ObjectId login(@NotNull LoginDTO validator) {
         // validator 数据处理
         if (Objects.nonNull(validator.getUsername())) {
             validator.setUsername(validator.getUsername().toLowerCase(Locale.ROOT));
@@ -63,11 +64,11 @@ public class UserServiceImpl implements UserService {
             throw new UserException("登录密码错误");
         }
 
-        return user;
+        return user.getId();
     }
 
     @Override
-    public User register(@NotNull RegisterDTO validator) {
+    public ObjectId register(@NotNull RegisterDTO validator) {
         // validator 数据处理
         validator.setUsername(validator.getUsername().toLowerCase(Locale.ROOT));
         validator.setEmail(validator.getEmail().toLowerCase(Locale.ROOT));
@@ -96,6 +97,6 @@ public class UserServiceImpl implements UserService {
         // 创建用户信息实体类
         user = new User();
         BeanUtils.copyProperties(validator, user);
-        return userRepository.save(user);
+        return userRepository.save(user).getId();
     }
 }

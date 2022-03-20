@@ -1,6 +1,7 @@
 package io.github.tierneyjohn.eshow.common.configuration;
 
 import io.github.tierneyjohn.eshow.common.exception.BaseException;
+import io.github.tierneyjohn.eshow.common.exception.FileException;
 import io.github.tierneyjohn.eshow.common.exception.UserException;
 import io.github.tierneyjohn.eshow.common.exception.ValidatedException;
 import io.github.tierneyjohn.eshow.vo.ResponseVO;
@@ -39,6 +40,8 @@ public class GlobalExceptionHandler {
 
         if (error instanceof UserException) {
             return builder.status("USER_ERROR").build();
+        } else if (error instanceof FileException) {
+            return builder.status("FILE_ERROR").build();
         }
         return builder.status("BUSINESS_ERROR").build();
     }
